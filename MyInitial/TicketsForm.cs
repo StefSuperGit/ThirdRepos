@@ -15,6 +15,7 @@ namespace Ticketing
         int mSection = 2;
         int mQuantity = 0;
         bool mDiscount = false;
+        
 
         public TicketsForm()
         {
@@ -39,6 +40,11 @@ namespace Ticketing
                 { mSection = 2; }
             if (radBox.Checked)
                 { mSection = 3; }
+            // Feat 1.1 mSection 4 for 
+            if (radBackStall.Checked)
+            {
+                mSection = 4;
+            }
 
             mTicketPrice = new TicketPrice(mSection, mQuantity, mDiscount);
 
