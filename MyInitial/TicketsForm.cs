@@ -15,6 +15,8 @@ namespace Ticketing
         int mSection = 2;
         int mQuantity = 0;
         bool mDiscount = false;
+        // feat 1.2 requires a bool for CHild Discount
+        bool mChildDiscount = false;
 
         public TicketsForm()
         {
@@ -32,7 +34,11 @@ namespace Ticketing
 
             if (chkDiscount.Checked)
                 { mDiscount = true; }
-
+            // Feat 1.2 Condition
+            if (checkChildDiscount.Checked)
+            {
+                mChildDiscount = true;
+            }
             if (radBalcony.Checked)
                 { mSection = 1; }
             if (radGeneral.Checked)
@@ -40,10 +46,16 @@ namespace Ticketing
             if (radBox.Checked)
                 { mSection = 3; }
 
-            mTicketPrice = new TicketPrice(mSection, mQuantity, mDiscount);
+            // Feat 1.2 now requires a constructor with childDiscount also
+            mTicketPrice = new TicketPrice(mSection, mQuantity, mDiscount, mChildDiscount);
 
             mTicketPrice.calculatePrice();
             lblAmount.Text = System.Convert.ToString(mTicketPrice.AmountDue);
         }
-     }
+
+        private void chkDiscount_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
 }
