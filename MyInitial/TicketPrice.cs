@@ -12,11 +12,15 @@ namespace Ticketing
         private bool discount;
         private decimal amountDue;
         private decimal mPrice;
-
+        // feat 1.2 now requires a Child Discount Field
+        private bool childDiscount;
+        
         const decimal mdecBalcony = 35.5m;
         const decimal mdecGeneral = 28.75m;
         const decimal mdecBox = 62.0m;
         const decimal mdecDiscount = 5.0m;
+        // feat 1.2
+        const decimal mdecChildDiscount = 10m;
         // FEAT 1.1 Creating Constant
         const decimal mdecBackStall = 15.0m;
 
@@ -38,19 +42,28 @@ namespace Ticketing
             set { discount = value; }
         }
 
-         public decimal AmountDue
+        // Feat 1.2 Requiures Getters/ Setters for child discount
+        private bool ChildDiscount
+        {
+            get { return childDiscount; }
+            set { childDiscount = value; }
+        }
+
+        public decimal AmountDue
         {
             get { return amountDue; }
             set { amountDue = value; }
         }
 
-    // Constructor for TcicketPrice
-    public TicketPrice(int section, int quantity, bool discount)
+    // Constructor for TcicketPrice     Feat 1.2 Now has child Discount
+    public TicketPrice(int section, int quantity, bool discount, bool childDiscount)
     {
         Section = section;
         Quantity = quantity;
         Discount = discount;
         AmountDue = amountDue;
+        // Feat 1.2
+        ChildDiscount = childDiscount;
     }
 
      public void calculatePrice()
@@ -74,6 +87,12 @@ namespace Ticketing
          }
          if (discount)
          { mPrice -= mdecDiscount; }
+
+        //  Feat 1.2 Requires if for child Discount
+        if (childDiscount)
+        {
+            mPrice -= mdecChildDiscount;
+        }
 
          AmountDue = mPrice * quantity;
 
